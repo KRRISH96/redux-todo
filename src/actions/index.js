@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { 
   ADD_TODO,
   DELETE_TODO,
@@ -8,6 +9,7 @@ let todoId = 0;
 export function addToList(item) {
   const todo = {
     id: todoId++,
+    isChecked: false,
     detail: item
   }
   return {
@@ -16,7 +18,10 @@ export function addToList(item) {
   }
 }
 
-export const deleteTodo = () => ({
-  type: DELETE_TODO,
-  payload: ''
-})
+export function deleteTodo(listItems) {
+  const updatedList = _.filter(listItems, item => item.isChecked !== true )
+  return {
+    type: DELETE_TODO,
+    payload: updatedList
+  }
+}
